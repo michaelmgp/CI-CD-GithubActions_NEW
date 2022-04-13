@@ -47,6 +47,7 @@ jobs:
   deployment:
     name: Deployment
     runs-on: ubuntu-18.04
+    needs: build
     steps:
       - uses: actions/checkout@v3
       - name: Deploy Using ssh
