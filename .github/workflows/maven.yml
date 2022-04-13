@@ -58,7 +58,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           script: |
-            docker stop exampleCICD 
+            docker stop example-cicd
             docker rmi michaelmgp/example-cicd:latest
             docker pull michaelmgp/example-cicd:latest
-            docker run -d --rm --name exampleCICD -p 80:8080  --network my_network michaelmgp/example-cicd:latest
+            docker run -d --rm --name example-cicd -p 80:8080  --network my_network michaelmgp/example-cicd:latest
