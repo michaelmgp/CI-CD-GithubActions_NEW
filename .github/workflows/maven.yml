@@ -43,5 +43,21 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/exampleCICD:latest
-
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/example-cicd:latest
+  deployment:
+    name: Deployment
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: Deploy Using ssh
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          script: |
+            docker stop exampleCICD 
+            docker rmi michaelmgp/example-cicd:latest
+            docker pull michaelmgp/example-cicd:latest
+            docker run -d --rm --name exampleCICD -p 80:8080  --network my_network michaelmgp/example-cicd:latest
