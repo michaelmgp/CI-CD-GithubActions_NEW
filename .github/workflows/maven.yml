@@ -20,14 +20,7 @@ jobs:
       - name: Maven Verify
         run: mvn clean verify
 
-      - name: copy file via ssh key
-        uses: appleboy/scp-action@master
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          port: 5432
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "dev.env"
+
   build:
     name: Build
     runs-on: ubuntu-18.04
@@ -58,6 +51,15 @@ jobs:
     runs-on: ubuntu-18.04
     needs: build
     steps:
+      - name: copy file via ssh key
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          port: 22
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "./dev.env"
+          target: "home/user"
       - uses: actions/checkout@v3
       - name: Deploy Using ssh
         uses: appleboy/ssh-action@master
@@ -70,4 +72,5 @@ jobs:
             docker stop example-cicd
             docker rmi michaelmgp/example-cicd:latest
             docker pull michaelmgp/example-cicd:latest
+            docker start postgres
             docker run -d --rm --name example-cicd -p 80:8080 --env-file=dev.env --network my_network michaelmgp/example-cicd:latest
