@@ -59,7 +59,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           port: 22
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "./dev.env"
+          source: "dev.env"
           target: home/${{ secrets.SSH_USER }}
       - name: Deploy Using ssh
         uses: appleboy/ssh-action@master
