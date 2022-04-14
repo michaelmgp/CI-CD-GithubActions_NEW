@@ -51,6 +51,7 @@ jobs:
     runs-on: ubuntu-18.04
     needs: build
     steps:
+      - uses: actions/checkout@v3
       - name: copy file via ssh key
         uses: appleboy/scp-action@master
         with:
@@ -60,7 +61,6 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: "./dev.env"
           target: home/${{ secrets.SSH_USER }}
-      - uses: actions/checkout@v3
       - name: Deploy Using ssh
         uses: appleboy/ssh-action@master
         with:
