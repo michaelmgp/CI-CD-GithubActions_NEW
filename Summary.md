@@ -1,5 +1,6 @@
 # CI/CD with Github Action
-## Pada Section Ini Terdapa beberapa Hal yang saya dapat 
+## Pada Section Ini Terdapat beberapa Hal yang saya dapat 
+---
 
 ## 1. CI/CD
 Adalah suatu konsep untuk melakukan integrasi suatu aplikasi dan deployment secara otomatis ci/cd ini memiliki pipeline mulai dari.
@@ -99,3 +100,4 @@ jobs:
 
 ## 3. Cloud Platform
 Adalah suatu soerver cloud sebagai tempat aplikasi kita dideploy. Pada kesempatan ini saya menggunakan google cloud. untuk melaukan deployment dibutuhkan docker untuk menset-up evironment dari Aplikasi kita. disini saya juga mengkoneksikan postgresql sebagai database pada aplikasi backend saya
+
